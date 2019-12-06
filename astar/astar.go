@@ -25,11 +25,9 @@ func Solve(start search.State, goal [][]int) *search.State {
 		expanded++
 
 		if current.IsGoal(goal) {
-			//solved
 			return &current
 		}
 		for _, next := range current.PossibleMoves(goal) {
-			//implement key of state to keep in heap
 			key := utils.BoardStringer(next.Board)
 			if old, exists := states[key]; !exists || next.Distance < old.Distance {
 				states[key] = next

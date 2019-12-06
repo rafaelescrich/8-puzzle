@@ -58,10 +58,8 @@ func InputParser(fileName string) [][]int {
 	}
 
 	rawInput := make([]byte, 17)
-	n, err := file.Read(rawInput)
-	if n > 0 {
-		fmt.Println("Raw input is:\n", string(rawInput))
-	}
+	_, err = file.Read(rawInput)
+
 	var inputArray []int
 	var inpStr []string
 	inputLines := strings.Split(string(rawInput), "\n")
@@ -85,18 +83,31 @@ func InputParser(fileName string) [][]int {
 // Solvable receives two boards and returns if the game is solvable
 func Solvable(board [][]int, goal [][]int) bool {
 	var invGoal int
+	var boardArray, goalArray [9]int
 
-	for i := range goal {
+	counter := 0
+
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			boardArray[counter] = board[i][j]
+			goalArray[counter] = goal[i][j]
+			counter++
+		}
+	}
+
+	fmt.Println(boardArray)
+
+	for i := range goalArray {
 		for j := i + 1; j < len(goal); j++ {
-			if goal[i] > goal[j] && goal[j] != 0 {
+			if goalArray[i] > goalArray[j] && goalArray[j] != 0 {
 				invGoal++
 			}
 		}
 	}
 	invBoard := 0
-	for i := range board {
-		for j := i + 1; j < len(board); j++ {
-			if board[i] > board[j] && board[j] != 0 {
+	for i := range boardArray {
+		for j := i + 1; j < len(boardArray); j++ {
+			if boardArray[i] > boardArray[j] && boardArray[j] != 0 {
 				invBoard++
 			}
 		}

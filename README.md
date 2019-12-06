@@ -7,7 +7,15 @@ Implementação em Go para encontrar o custo da solução usando A*.
 ### Linux e OS X
 
 ```bash
-./8-puzzle
+go build -o 8-puzzle-linux-x64
+./8-puzzle-linux-x64
+```
+
+Cross compile from linux to OS X
+
+```bash
+GOOS=darwin GOARCH=amd64 go build -o 8-puzzle-mac
+./8-puzzle-mac
 ```
 
 ## Example Output

@@ -10,7 +10,7 @@ import (
 )
 
 // Solve is the function to solve the game
-func Solve(start search.State, goal [][]int) *search.State {
+func Solve(start search.State, goal [][]int) (*search.State, int) {
 	var frontier, expanded int
 	states := make(map[string]search.State)
 	pq := make(priorityQueue.PriorityQueue, 0)
@@ -25,7 +25,7 @@ func Solve(start search.State, goal [][]int) *search.State {
 		expanded++
 
 		if current.IsGoal(goal) {
-			return &current
+			return &current, expanded
 		}
 		for _, next := range current.PossibleMoves(goal) {
 			key := utils.BoardStringer(next.Board)
@@ -36,5 +36,5 @@ func Solve(start search.State, goal [][]int) *search.State {
 			}
 		}
 	}
-	return nil
+	return nil, expanded
 }

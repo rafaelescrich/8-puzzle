@@ -20,18 +20,17 @@ func main() {
 	}
 
 	if !utils.Solvable(board, goal) {
-		fmt.Println("Unsolvable Puzzle")
+		fmt.Println("Sem solução")
 		return
 	}
 	utils.StatePrinter(board)
 	startState := search.NewState(board, goal)
 	var solution *search.State
 
-	solution = astar.Solve(startState, goal)
+	solution, expanded := astar.Solve(startState, goal)
 
 	if solution == nil {
-		fmt.Println("Sem solução...")
-		fmt.Println("Finalizado...", time.Now())
+		fmt.Println("Sem solução")
 		return
 	}
 	s := solution
@@ -49,7 +48,7 @@ func main() {
 	}
 
 	fmt.Println("Custo da solução:", solution.NumMoves)
-	fmt.Println("Finalizado...")
+	fmt.Println("Nós expandidos: ", expanded)
 	elapsed := time.Since(startTime)
 	fmt.Println("Processo levou cerca de:", elapsed)
 	return
